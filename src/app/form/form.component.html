@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row my-5 d-flex justify-content-center align-items-center">
+        <div class="col-5 bg-light shadow-lg">
+            <h3 class="text-center h3 mt-3 text-primary">Contact Form</h3>
+            <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="mx-4">
+                <p>
+                    <label for="firstName">First Name</label>
+                    <input type="text" name="firstName" #firstname="ngModel" id="firstName" class="form-control" [(ngModel)]="contact.firstName" autofocus pattern="[a-zA-Z]{3,15}" minlength="3" required>
+                    <span class="text-danger" *ngIf="!firstname.valid && (firstname.touched)">
+                        <span class="text-danger" *ngIf="firstname.errors?.['required']">
+                            Fill the field with your first name
+                        </span>
+                        <span class="text-danger" *ngIf="firstname.errors?.['minlength']">
+                            first name should be 3 letters
+                        </span>
+                        <span class="text-danger" *ngIf="firstname.errors?.['pattern']">
+                            invalid first name
+                        </span>
+                    </span>
+                </p>
+                <p>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name="lastName" id="lastName" #lastname="ngModel" class="form-control" [(ngModel)]="contact.lastName" required minlength="3">
+                    <span class="text-danger" *ngIf="!lastname.valid && (firstname.touched)">
+                        <span class="text-danger" *ngIf="lastname.errors?.['required']">
+                            Fill the field with your first name
+                        </span>
+                        <span class="text-danger" *ngIf="lastname.errors?.['minlength']">
+                            first name should be 3 letters
+                        </span>
+                    </span>
+                </p>
+                <p>
+                    <label for="email">Email Id</label>
+                    <input type="email" name="email" id="email" #email="ngModel" class="form-control" [(ngModel)]="contact.email" required>
+                    <span class="text-danger" *ngIf="!email.valid && (email.touched)">
+                        <span class="text-danger" *ngIf="email.errors?.['required']">
+                            email is required
+                        </span>
+                    </span>
+                </p>
+                <div>   
+                    <label for="gender">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="male" id="male" required #gender="ngModel"   name="gender" [(ngModel)]="contact.gender">Male 
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="female" id="female" name="gender" #gender="ngModel" required [(ngModel)]="contact.gender">Female
+                    </div>
+                    <span class="text-danger" *ngIf="!gender.valid && (gender.touched)">
+                        <span class="text-danger" *ngIf="gender.errors?.['required']">
+                            gender is required
+                        </span>
+                    </span>
+                </div>
+                <p class="form-check ms-4 my-2">
+                    <input class="form-check-input" type="checkbox" #married="ngModel" required name="status" id="isMarried" [(ngModel)]="contact.status" >
+                    <label class="form-check-label" for="status">Married</label>
+                    <span class="text-danger" *ngIf="!married.valid && (married.touched)">
+                        <span class="text-danger" *ngIf="married.errors?.['required']">
+                            married status is required
+                        </span>
+                    </span>
+                </p>
+                <p>
+                    <label for="country">Country</label>
+                    <select name="country" id="country" #country="ngModel" required class="form-select" [(ngModel)]="contact.country">
+                        <option value="" disabled>--select--</option>
+                        <option [ngValue]="country.id" *ngFor="let country of countryList">{{country.name}}</option>
+                    </select>
+                    <span class="text-danger" *ngIf="!country.valid && (country.touched)">
+                        <span class="text-danger" *ngIf="country.errors?.['required']">
+                            country name is required
+                        </span>
+                    </span>
+                </p>
+                <div ngModelGroup="address">
+                    <p>
+                        <label for="city">City</label>
+                        <input type="text" name="city" id="city" #city="ngModel" required class="form-control" [(ngModel)]="contact.address.city">
+                        <span class="text-danger" *ngIf="!city.valid && (city.touched)">
+                            <span class="text-danger" *ngIf="city.errors?.['required']">
+                                city name is required
+                            </span>
+                        </span>
+                    </p>
+                    <p>
+                        <label for="state">State</label>
+                        <input type="text" name="state" id="state" #state="ngModel" required class="form-control" [(ngModel)]="contact.address.state">
+                        <span class="text-danger" *ngIf="!state.valid && (state.touched)">
+                            <span class="text-danger" *ngIf="state.errors?.['required']">
+                                city name is required
+                            </span>
+                        </span>
+                    </p>
+                    <p>
+                        <label for="pincode">Pincode</label>
+                        <input type="number" name="pincode" id="pincode" #pincode="ngModel" required class="form-control" [(ngModel)]="contact.address.pincode">
+                        <span class="text-danger" *ngIf="!pincode.valid && (pincode.touched)">
+                            <span class="text-danger" *ngIf="pincode.errors?.['required']">
+                                city name is required
+                            </span>
+                        </span>
+                    </p>
+                </div>
+                <p>
+                    <input type="submit" [disabled]="!contactForm.valid" class="btn btn-success" value="Submit">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
